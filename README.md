@@ -12,12 +12,6 @@ All skills in this catalog (interactive picker):
 npx skills@latest add aifgrouplaos/ai-skills
 ```
 
-All skills, all agents, no prompts:
-
-```bash
-npx skills@latest add aifgrouplaos/ai-skills --all
-```
-
 One skill:
 
 ```bash

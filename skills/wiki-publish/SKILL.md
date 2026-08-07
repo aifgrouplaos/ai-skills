@@ -17,7 +17,7 @@ Mutation shapes: [REFERENCE.md](REFERENCE.md).
 
 **Durable store = Wiki.js.** Working copies are ephemeral under `$TMPDIR/wiki-publish/`. Never write wiki markdown into a project repo (no `docs/wiki-packs/`).
 
-Speak wiki-root paths to the user (`./standards/…`, `./projects/…`).
+Speak **locale-absolute** URLs to the user (`/en/standards/…`, `/en/projects/…`). GraphQL `path` omits `/en/` (locale is a separate field). Never use markdown hrefs `./standards/…` or `../…` — Wiki.js nests those under the current page.
 
 ---
 
@@ -25,11 +25,12 @@ Speak wiki-root paths to the user (`./standards/…`, `./projects/…`).
 
 Completion: every target has `locale`, GraphQL `path`, working-copy path, intended `title`, and a create/update intent once preflight runs.
 
-1. Parse user request into wiki path(s) (`./standards/templates/overview` → `standards/templates/overview`).
+1. Parse user request into wiki path(s) (`/en/standards/templates/overview` or `./standards/templates/overview` → GraphQL path `standards/templates/overview`).
 2. Locale: site `/en/…` → `locale: "en"`; **path has no `en/` prefix**.
 3. Working-copy path: `$TMPDIR/wiki-publish/<path-with-/-as-->.md` (e.g. `standards-templates-overview.md`).
 4. If the working copy is missing → **Step 0b (bootstrap)**. If present → use it as `content`.
 5. Title = first `#` heading unless the user overrides.
+6. If authoring markdown that will be published, in-body links must be locale-absolute (`/en/…`), not `./` or `../`.
 
 ### Step 0b — Bootstrap (no working copy)
 

@@ -110,3 +110,4 @@ When Step 0 mode is **pull template**, fetch live wiki content from the matching
 - Parent paths must exist before child creates.
 - API Access must be enabled; new keys sometimes need a Wiki.js restart.
 - Prefer `curl` if Python HTTPS SSL verify fails on the machine.
+- In-body markdown links must be locale-absolute (`/en/standards/…`, `/en/projects/…`). `./standards/…` or `../…` nests under the current page (e.g. `/en/standards/standards/…`).

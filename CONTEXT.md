@@ -2,7 +2,7 @@
 
 ## Skill
 
-An installable agent-skill folder under `skills/<name>/`, containing at least `SKILL.md`. Colleagues install Skills from this repo with `npx skills`.
+An installable agent-skill folder under `skills/<bucket>/<name>/` (`company`, `engineering`, or `productivity`), containing at least `SKILL.md`. Colleagues install Skills from this repo with `npx skills`.
 
 ## Skills catalog
 

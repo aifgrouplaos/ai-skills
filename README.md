@@ -37,68 +37,65 @@ export WIKI_API_KEY=…   # from Wiki.js API access — do not paste into chat/P
 
 ## Skills
 
-Flat layout under `skills/<name>/`. Upstream pins and licenses: [`third-party/`](./third-party/).
+Grouped under `skills/<bucket>/<name>/`. Upstream pins and licenses: [`third-party/`](./third-party/).
 
-### Company
-
-| Skill | What it does |
-|---|---|
-| [`wiki-publish`](./skills/wiki-publish/) | Bootstrap an ephemeral working copy, then create/update Wiki.js pages via GraphQL after exact `APPROVE` |
-
-### From [mattpocock/skills](https://github.com/mattpocock/skills) (public engineering + productivity)
+### `company/` — AIF-authored
 
 | Skill | What it does |
 |---|---|
-| [`ask-matt`](./skills/ask-matt/) | Router — which skill/flow fits |
-| [`code-review`](./skills/code-review/) | Standards + Spec review via parallel sub-agents |
-| [`codebase-design`](./skills/codebase-design/) | Deep-module design vocabulary |
-| [`diagnosing-bugs`](./skills/diagnosing-bugs/) | Disciplined diagnosis loop |
-| [`domain-modeling`](./skills/domain-modeling/) | Glossary + ADRs |
-| [`grill-me`](./skills/grill-me/) | Relentless plan/design interview |
-| [`grill-with-docs`](./skills/grill-with-docs/) | Grilling + domain docs inline |
-| [`grilling`](./skills/grilling/) | Shared grilling primitive |
-| [`handoff`](./skills/handoff/) | Compact conversation for another agent |
-| [`implement`](./skills/implement/) | Build from a spec/tickets (`/tdd` + `/code-review`) |
-| [`improve-codebase-architecture`](./skills/improve-codebase-architecture/) | Deepening survey + HTML report |
-| [`prototype`](./skills/prototype/) | Throwaway prototype for a design question |
-| [`research`](./skills/research/) | Primary-source research → Markdown in-repo |
-| [`resolving-merge-conflicts`](./skills/resolving-merge-conflicts/) | Resolve in-progress merge/rebase by intent |
-| [`setup-matt-pocock-skills`](./skills/setup-matt-pocock-skills/) | One-time issue tracker / triage / domain layout setup |
-| [`tdd`](./skills/tdd/) | Red-green-refactor |
-| [`teach`](./skills/teach/) | Multi-session teaching workspace |
-| [`to-questionnaire`](./skills/to-questionnaire/) | Decision → async questionnaire |
-| [`to-spec`](./skills/to-spec/) | Conversation → issue-tracker spec |
-| [`to-tickets`](./skills/to-tickets/) | Plan → tracer-bullet tickets with edges |
-| [`triage`](./skills/triage/) | Issue/PR triage state machine |
-| [`wait-what`](./skills/wait-what/) | Re-pitch a message that didn't land |
-| [`wayfinder`](./skills/wayfinder/) | Large work as a map of decision tickets |
-| [`wizard`](./skills/wizard/) | Interactive bash wizard for human-only steps |
-| [`writing-for-agents`](./skills/writing-for-agents/) | How to write skills / AGENTS.md |
+| [`wiki-publish`](./skills/company/wiki-publish/) | Bootstrap an ephemeral working copy, then create/update Wiki.js pages via GraphQL after exact `APPROVE` |
 
-### From [thananon/9arm-skills](https://github.com/thananon/9arm-skills) (shippable)
+### `engineering/` — daily code work
 
-| Skill | What it does |
-|---|---|
-| [`debug-mantra`](./skills/debug-mantra/) | Four-mantra debugging discipline |
-| [`management-talk`](./skills/management-talk/) | Engineer prose → leadership channel copy |
-| [`post-mortem`](./skills/post-mortem/) | Canonical bug writeup after a validated fix |
-| [`qwen-agent`](./skills/qwen-agent/) | Cheap Qwen subagent via `claude-9arm` (needs that CLI) |
-| [`qwenchance`](./skills/qwenchance/) | Break loops / bound context / handoff before window fills |
-| [`scrutinize`](./skills/scrutinize/) | Outsider end-to-end review of plan/PR/change |
+| Skill | Source | What it does |
+|---|---|---|
+| [`ask-matt`](./skills/engineering/ask-matt/) | mattpocock | Router — which skill/flow fits |
+| [`code-review`](./skills/engineering/code-review/) | mattpocock | Standards + Spec review via parallel sub-agents |
+| [`codebase-design`](./skills/engineering/codebase-design/) | mattpocock | Deep-module design vocabulary |
+| [`debug-mantra`](./skills/engineering/debug-mantra/) | 9arm | Four-mantra debugging discipline |
+| [`diagnosing-bugs`](./skills/engineering/diagnosing-bugs/) | mattpocock | Disciplined diagnosis loop |
+| [`domain-modeling`](./skills/engineering/domain-modeling/) | mattpocock | Glossary + ADRs |
+| [`grill-with-docs`](./skills/engineering/grill-with-docs/) | mattpocock | Grilling + domain docs inline |
+| [`implement`](./skills/engineering/implement/) | mattpocock | Build from a spec/tickets (`/tdd` + `/code-review`) |
+| [`improve-codebase-architecture`](./skills/engineering/improve-codebase-architecture/) | mattpocock | Deepening survey + HTML report |
+| [`post-mortem`](./skills/engineering/post-mortem/) | 9arm | Canonical bug writeup after a validated fix |
+| [`prototype`](./skills/engineering/prototype/) | mattpocock | Throwaway prototype for a design question |
+| [`qwen-agent`](./skills/engineering/qwen-agent/) | 9arm | Cheap Qwen subagent via `claude-9arm` (needs that CLI) |
+| [`research`](./skills/engineering/research/) | mattpocock | Primary-source research → Markdown in-repo |
+| [`resolving-merge-conflicts`](./skills/engineering/resolving-merge-conflicts/) | mattpocock | Resolve in-progress merge/rebase by intent |
+| [`scrutinize`](./skills/engineering/scrutinize/) | 9arm | Outsider end-to-end review of plan/PR/change |
+| [`setup-matt-pocock-skills`](./skills/engineering/setup-matt-pocock-skills/) | mattpocock | One-time issue tracker / triage / domain layout setup |
+| [`tdd`](./skills/engineering/tdd/) | mattpocock | Red-green-refactor |
+| [`to-spec`](./skills/engineering/to-spec/) | mattpocock | Conversation → issue-tracker spec |
+| [`to-tickets`](./skills/engineering/to-tickets/) | mattpocock | Plan → tracer-bullet tickets with edges |
+| [`triage`](./skills/engineering/triage/) | mattpocock | Issue/PR triage state machine |
+| [`wayfinder`](./skills/engineering/wayfinder/) | mattpocock | Large work as a map of decision tickets |
+| [`wizard`](./skills/engineering/wizard/) | mattpocock | Interactive bash wizard for human-only steps |
 
-### From [JuliusBrussee/caveman](https://github.com/JuliusBrussee/caveman)
+### `productivity/` — non-code workflow
 
-| Skill | What it does |
-|---|---|
-| [`caveman`](./skills/caveman/) | Terse communication mode (`/caveman`); say `stop caveman` to exit |
+| Skill | Source | What it does |
+|---|---|---|
+| [`caveman`](./skills/productivity/caveman/) | caveman | Terse communication mode (`/caveman`); say `stop caveman` to exit |
+| [`grill-me`](./skills/productivity/grill-me/) | mattpocock | Relentless plan/design interview |
+| [`grilling`](./skills/productivity/grilling/) | mattpocock | Shared grilling primitive |
+| [`handoff`](./skills/productivity/handoff/) | mattpocock | Compact conversation for another agent |
+| [`management-talk`](./skills/productivity/management-talk/) | 9arm | Engineer prose → leadership channel copy |
+| [`qwenchance`](./skills/productivity/qwenchance/) | 9arm | Break loops / bound context / handoff before window fills |
+| [`teach`](./skills/productivity/teach/) | mattpocock | Multi-session teaching workspace |
+| [`to-questionnaire`](./skills/productivity/to-questionnaire/) | mattpocock | Decision → async questionnaire |
+| [`wait-what`](./skills/productivity/wait-what/) | mattpocock | Re-pitch a message that didn't land |
+| [`writing-for-agents`](./skills/productivity/writing-for-agents/) | mattpocock | How to write skills / AGENTS.md |
 
 ## Layout
 
 ```
 skills/
-  <name>/SKILL.md   # + optional reference files / scripts
-third-party/        # upstream licenses + pin SHAs
-docs/agents/        # issue tracker, triage labels, domain docs pointers
+  company/       # AIF-authored
+  engineering/   # daily code work
+  productivity/  # non-code workflow
+third-party/     # upstream licenses + pin SHAs
+docs/agents/     # issue tracker, triage labels, domain docs pointers
 CONTEXT.md
 AGENTS.md
 ```

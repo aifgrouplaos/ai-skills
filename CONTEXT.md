@@ -29,3 +29,12 @@ The Wiki.js base URL used by Wiki publish. Supplied only via environment (`WIKI_
 ## Step 0 (bootstrap)
 
 The Wiki publish branch when no working copy exists yet. Modes: **stub**, **pull template** (from live wiki `standards/templates/…`, else stub), **pull live** (target path via GraphQL). Always followed by Plan A + `APPROVE` before writing the working copy.
+
+## Wiki write
+
+The Skill that authors one Engineering Wiki page per run from a live `standards/templates/…` template. It never mutates Wiki.js. Flow: confirm **project name** → offer template menu from the live templates index (not a full `standards/` dump) → user picks one template → pull that template only → grill from its placeholders → fill codebase-second when code exists → write one working copy under `projects/<project-name>/…` → hand off to `/wiki-publish`.
+
+## Project name (wiki)
+
+The slug the user confirms for the wiki tree. Maps to path prefix `projects/<project-name>/` (URL form `$WIKI_URL/<locale>/projects/<project-name>/`). Not necessarily identical to the git repo name — confirm with the user.
+

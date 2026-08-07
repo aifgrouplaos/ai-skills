@@ -1,0 +1,23 @@
+{
+  "name": "aifgrouplaos",
+  "owner": {
+    "name": "AIF Group Laos",
+    "url": "https://github.com/aifgrouplaos"
+  },
+  "description": "AIF Group Laos skills as an installable Claude Code plugin.",
+  "plugins": [
+    {
+      "name": "aif-skills",
+      "source": "./",
+      "description": "AIF Group Laos agent skills — company wiki workflows plus engineering and productivity skills.",
+      "category": "engineering",
+      "keywords": [
+        "engineering",
+        "skills",
+        "wiki",
+        "productivity",
+        "aif"
+      ]
+    }
+  ]
+}

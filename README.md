@@ -6,14 +6,27 @@ Private company catalog of agent Skills for [AIF Group Laos](https://github.com/
 
 Requires GitHub access to this private repo (`gh auth login` and/or SSH keys that can clone it).
 
+All skills in this catalog (interactive picker):
+
 ```bash
-# All skills in this catalog
 npx skills@latest add aifgrouplaos/ai-skills
+```
 
-# One skill
+All skills, all agents, no prompts:
+
+```bash
+npx skills@latest add aifgrouplaos/ai-skills --all
+```
+
+One skill:
+
+```bash
 npx skills@latest add aifgrouplaos/ai-skills@wiki-publish
+```
 
-# SSH if HTTPS auth is awkward
+SSH if HTTPS auth is awkward:
+
+```bash
 npx skills@latest add git@github.com:aifgrouplaos/ai-skills.git
 ```
 

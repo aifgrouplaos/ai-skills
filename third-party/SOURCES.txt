@@ -1,0 +1,3 @@
+mattpocock/skills  84fdeffd12f2ee307994d1eb6feb48173b6e0502  engineering/ + productivity/ only
+thananon/9arm-skills  a1fc303b274ed06c32d405ba5a6db00ded6e5663  engineering/ + productivity/ only
+JuliusBrussee/caveman  ec83e5bace4c20484d704dea21e12fc4eb94e9aa  skills/caveman only

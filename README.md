@@ -37,7 +37,7 @@ export WIKI_API_KEY=…   # from Wiki.js API access — do not paste into chat/P
 
 ## Skills
 
-Grouped under `skills/<bucket>/<name>/`. Upstream pins and licenses: [`third-party/`](./third-party/).
+Grouped under `skills/<bucket>/<name>/`. Upstream pins and licenses: [`third-party/`](./third-party/). Matt Pocock skills documentation: [aihero.dev/skills](https://www.aihero.dev/skills).
 
 ### `company/` — AIF-authored
 

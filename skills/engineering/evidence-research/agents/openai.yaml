@@ -1,0 +1,4 @@
+interface:
+  display_name: "Evidence Research"
+  short_description: "Evidence-first web research with source links"
+  default_prompt: "Use $evidence-research to investigate this question and return evidence, references, and links to original sources."

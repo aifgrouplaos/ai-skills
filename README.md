@@ -63,6 +63,7 @@ Grouped under `skills/<bucket>/<name>/`. Upstream pins and licenses: [`third-par
 | [`debug-mantra`](./skills/engineering/debug-mantra/) | 9arm | Four-mantra debugging discipline |
 | [`diagnosing-bugs`](./skills/engineering/diagnosing-bugs/) | mattpocock | Disciplined diagnosis loop |
 | [`domain-modeling`](./skills/engineering/domain-modeling/) | mattpocock | Glossary + ADRs |
+| [`evidence-research`](./skills/engineering/evidence-research/) | 9arm | Evidence-first research with primary sources and source-backed synthesis |
 | [`grill-with-docs`](./skills/engineering/grill-with-docs/) | mattpocock | Grilling + domain docs inline |
 | [`implement`](./skills/engineering/implement/) | mattpocock | Build from a spec/tickets (`/tdd` + `/code-review`) |
 | [`improve-codebase-architecture`](./skills/engineering/improve-codebase-architecture/) | mattpocock | Deepening survey + HTML report |

@@ -11,7 +11,7 @@ disable-model-invocation: true
 Endpoint: `POST $WIKI_URL/graphql`  
 Auth: `Authorization: Bearer $WIKI_API_KEY` (env / `.env` — never print the key)
 
-**Leading words:** *preflight* · *working copy* · *plan* · *APPROVE* · *mutate* · *cleanup*
+**Leading words:** *preflight* · *working copy* · *index propagation* · *plan* · *APPROVE* · *mutate* · *cleanup*
 
 Mutation shapes: [REFERENCE.md](REFERENCE.md).
 
@@ -31,6 +31,7 @@ Completion: every target has `locale`, GraphQL `path`, working-copy path, intend
 4. If the working copy is missing → **Step 0b (bootstrap)**. If present → use it as `content`.
 5. Title = first `#` heading unless the user overrides.
 6. If authoring markdown that will be published, in-body links must be locale-absolute (`/en/…`), not `./` or `../`.
+7. **Index propagation:** when the target is a project leaf or section, expand the target set per [REFERENCE.md](REFERENCE.md#index-propagation) (section index + project root for leaves; project root for sections). Use existing index working copies; if missing, pull live **index page(s) first** (`singleByPath`, propagation-table paths only) + patch before Plan B.
 
 ### Step 0b — Bootstrap (no working copy)
 
@@ -88,8 +89,9 @@ Completion: every planned row has success **and** `singleByPath` verify.
 1. **create** — `pages.create` with `editor: "markdown"`, `isPublished: true`, `isPrivate: false`, `tags: []`, body from working copy.  
    Do **not** request `page.locale` in the create selection set. Prefer `responseResult` + verify query.
 2. **update** — `pages.update(id: …)` with new `content` / `title`; keep `editor: "markdown"`, `isPublished: true`.
-3. After each write: `singleByPath` → confirm `id`, `path`, `title`.
-4. Report live URLs + failures.
+3. When *index propagation* applies: mutate leaf/section first, then section index, then project root ([REFERENCE.md](REFERENCE.md#mutate-order)).
+4. After each write: `singleByPath` → confirm `id`, `path`, `title`.
+5. Report live URLs + failures.
 
 ---
 
@@ -108,3 +110,5 @@ Completion: every **successfully** verified working copy from this run is delete
 - Create when missing; update when `id` exists.
 - Exact `APPROVE` gates Plan A (local write) and Plan B (wiki mutate).
 - Ephemeral working copies only — wiki is durable.
+- Project leaf/section publishes expand to *index propagation* targets unless the user opts out.
+- Index propagation: pull **index paths first**, exact paths only — no folder listings, no unrelated pages.

@@ -32,9 +32,9 @@ The Wiki publish branch when no working copy exists yet. Modes: **stub**, **pull
 
 ## Wiki write
 
-The Skill that authors one Engineering Wiki page per run from a live `standards/templates/…` template. It never mutates Wiki.js. Flow: confirm **project name** → offer template menu from the live templates index (not a full `standards/` dump) → user picks one template → pull that template only → grill from its placeholders → fill codebase-second when code exists → write one working copy under `projects/<project-name>/…` → hand off to `/wiki-publish`.
+The Skill that authors one Engineering Wiki page per run from a live `standards/templates/…` template. It never mutates Wiki.js. Flow: resolve **project name** from the live wiki `projects` index (skip the ask when the slug already exists; never use git repo name) → offer template menu from the live templates index (not a full `standards/` dump) → user picks one template → pull that template only → grill from its placeholders → fill codebase-second when code exists → write one working copy under `projects/<project-name>/…` → hand off to `/wiki-publish`.
 
 ## Project name (wiki)
 
-The slug the user confirms for the wiki tree. Maps to path prefix `projects/<project-name>/` (URL form `$WIKI_URL/<locale>/projects/<project-name>/`). Not necessarily identical to the git repo name — confirm with the user.
+The slug under `projects/<project-name>/` (URL form `$WIKI_URL/<locale>/projects/<project-name>/`). Taken from the wiki `projects` index only — never from the git repo or cwd. Ask the user only when creating a project that is not yet on that index.
 

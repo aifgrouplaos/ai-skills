@@ -19,6 +19,16 @@ query ($path: String!, $locale: String!) {
 
 Typical locale: `"en"`.
 
+## Project name
+
+Source of truth is the wiki, not git.
+
+1. Pull **`projects`** (index) via `singleByPath` first — one cheap page. Parse existing slugs from locale-absolute `/en/projects/<slug>` links on that page.
+2. Never derive a slug from git repo name, cwd, or local folders.
+3. User already named a slug **on that index** → use it; no ask.
+4. Index has projects, none named → offer the wiki list (one pick).
+5. Slug **not** on the index → ask for a new wiki slug (creating a new project tree).
+
 ## Template menu source
 
 Index path: `standards/templates`  
@@ -43,6 +53,51 @@ Pull this page only for the *menu*. Do not bulk-load sibling `standards/*` pages
 | `standards/templates/api` | `projects/<project-name>/api` |
 
 Leaf slugs (`<journey>`, `<system>`, `<runbook>`) come from the user in Step 3.
+
+## Index propagation
+
+When authoring a **leaf** or **section** page under a project, also refresh upstream index working copies so navigation stays current.
+
+### Leaf → indexes
+
+| Leaf template | Leaf path | Section index (patch) | Project root |
+|---|---|---|---|
+| `workflow` | `projects/<p>/workflows/<slug>` | `projects/<p>/workflows` | `projects/<p>` |
+| `integration` | `projects/<p>/integrations/<slug>` | `projects/<p>/integrations` | `projects/<p>` |
+| `runbook` | `projects/<p>/runbooks/<slug>` | `projects/<p>/runbooks` | `projects/<p>` |
+
+### Section → project root
+
+When authoring a **section** page (not a leaf), ensure **project root** lists it:
+
+| Section template | Section path |
+|---|---|
+| `overview` | `projects/<p>/overview` |
+| `backend` | `projects/<p>/backend` |
+| `frontend` | `projects/<p>/frontend` |
+| `workflows` | `projects/<p>/workflows` |
+| `integrations` | `projects/<p>/integrations` |
+| `runbooks` | `projects/<p>/runbooks` |
+| `api` | `projects/<p>/api` |
+
+All section rows patch `projects/<p>` (project root).
+
+### Pull discipline
+
+- **Index first** — upstream index page(s) are cheap; pull them via `singleByPath` before heavier reads or patching.
+- **Exact paths only** — one GraphQL read per path in the tables below; never `pages.list` by prefix, never bulk-fetch `projects/<p>/*`, never pull sibling leaves or unrelated sections.
+- **Leaf propagation order:** (1) section index, (2) project root — indexes only (the leaf body is already in the working copy).
+- **Section propagation:** project root only.
+
+### Patch rules
+
+1. **Pull live** index content via GraphQL before editing.
+2. Add a list entry if the link is missing: `- [<title>](/en/<path>)` — match the list style already on the page; add a one-line blurb only if sibling entries have one.
+3. Link href = locale-absolute `/en/` + GraphQL path (no `./` or `../`).
+4. Link text = the new page's `#` title (or user override).
+5. **Do not duplicate** an existing link to the same path; update link text if the title changed.
+6. Preserve existing content and ordering; append unless the live index uses another convention (e.g. alphabetical) — then follow it.
+7. One working copy per path under `$TMPDIR/wiki-publish/`.
 
 ## Working copy filename
 

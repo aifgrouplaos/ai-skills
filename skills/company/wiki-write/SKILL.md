@@ -13,7 +13,7 @@ Read templates from Wiki.js; write an ephemeral *working copy*. **Never** mutate
 
 Env: `WIKI_URL` + `WIKI_API_KEY` required. Missing either → notify user and stop. Never echo the key.
 
-**Leading words:** *menu* · *focus* · *grill* · *working copy* · *handoff*
+**Leading words:** *menu* · *focus* · *grill* · *working copy* · *index propagation* · *handoff*
 
 GraphQL read shapes + template→path map: [REFERENCE.md](REFERENCE.md).  
 Prefer `curl` if Python SSL verify fails.
@@ -24,10 +24,12 @@ Speak locale-absolute paths (`/en/projects/<name>/…`). GraphQL `path` omits `e
 
 ## Step 1 — Project name
 
-Completion: user confirmed wiki slug `<project-name>`; target prefix is `projects/<project-name>/`.
+Completion: wiki slug `<project-name>` resolved from the **wiki** `projects` index; target prefix is `projects/<project-name>/`.
 
-1. Ask for the **project name** used on the wiki (may differ from the git repo name).
-2. State the URL form: `$WIKI_URL/en/projects/<project-name>/`.
+1. Pull **`projects`** (index) via `singleByPath` — cheap, first. Existing slugs come **only** from that page. Never git repo, cwd, or local folder names.
+2. If the user already named a slug that is on that index → use it; state `$WIKI_URL/en/projects/<project-name>/`; proceed to Step 2 — **do not ask**.
+3. If the index has existing projects and none named → offer that wiki list (**one pick**). Still no free-form name ask.
+4. New project (slug not on the index) → then ask for a new wiki slug. Confirm before Step 2.
 
 ---
 
@@ -64,14 +66,19 @@ Completion: every `<placeholder>` in the chosen template has an answer, `todo`/`
 
 ---
 
-## Step 5 — Fill working copy
+## Step 5 — Fill working copy (+ index propagation)
 
-Completion: one markdown file written; template guidance blockquotes removed; placeholders replaced; in-body links locale-absolute (`/en/…`).
+Completion: leaf/section markdown written; upstream index working copies patched when applicable; template guidance blockquotes removed; placeholders replaced; in-body links locale-absolute (`/en/…`).
 
 1. Working-copy path: `$TMPDIR/wiki-publish/<path-with-/-as-->.md`.
 2. Write the filled page (title from first `#` unless overridden).
 3. Mermaid diagrams: Wiki.js renders **Mermaid 8.8.2** — use only syntax supported by that version.
-4. Show path + destination wiki URL form. Stop for the user to review.
+4. **Index propagation** — per [REFERENCE.md](REFERENCE.md):
+   - **Leaf** (`workflow`, `integration`, `runbook`): pull live indexes **first** — section index, then project root (`singleByPath` each; no other reads); patch link to the new leaf; write index working copies.
+   - **Section** (`overview`, `backend`, `frontend`, `workflows`, `integrations`, `runbooks`, `api`): pull live **project root** first; patch link to the section; write project-root working copy.
+   - Propagation table paths only — never list folders or pull unrelated project pages.
+   - Skip only when the user explicitly opts out.
+5. Show every working-copy path + destination wiki URL. Stop for the user to review.
 
 ---
 
@@ -79,7 +86,7 @@ Completion: one markdown file written; template guidance blockquotes removed; pl
 
 Completion: user knows next action; session does not mutate Wiki.js.
 
-1. Remind: publish with `/wiki-publish` for this path when ready.
+1. Remind: publish with `/wiki-publish` for **every** working copy from this pass (leaf/section + any index patches) when ready.
 2. Ask whether to run another **one-template** pass (new *menu* pick) or stop.
 
 ---
@@ -87,6 +94,7 @@ Completion: user knows next action; session does not mutate Wiki.js.
 ## Guards (positive form)
 
 - One template per focused pass.
-- Pull index for *menu*; pull the chosen template body only.
+- Pull index for *menu*; pull the chosen template body only; propagation pulls **index paths first**, exact paths only — no folder listings, no unrelated pages.
 - Author working copies; `/wiki-publish` performs *mutate*.
-- Exact project slug confirmed before any destination path is written.
+- Leaf and section pages trigger *index propagation* unless the user opts out.
+- Project slugs come from the wiki `projects` index only — never git repo or cwd. Skip the name ask when the slug is already on that index; ask only for a **new** wiki project.

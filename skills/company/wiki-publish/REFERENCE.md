@@ -104,6 +104,31 @@ Locale stays in `locale`, never in `path`.
 
 When Step 0 mode is **pull template**, fetch live wiki content from the matching `standards/templates/…` page (e.g. overview → `standards/templates/overview`). If that page is missing, use **stub**.
 
+## Index propagation
+
+When publishing a **leaf** or **section** under `projects/<p>/…`, also publish upstream index updates so navigation stays current. Same mapping and patch rules as wiki-write [REFERENCE.md](../wiki-write/REFERENCE.md#index-propagation).
+
+### Auto-expand targets
+
+| Published path pattern | Also include in plan |
+|---|---|
+| `projects/<p>/workflows/<slug>` | `projects/<p>/workflows`, `projects/<p>` |
+| `projects/<p>/integrations/<slug>` | `projects/<p>/integrations`, `projects/<p>` |
+| `projects/<p>/runbooks/<slug>` | `projects/<p>/runbooks`, `projects/<p>` |
+| `projects/<p>/{overview,backend,frontend,workflows,integrations,runbooks,api}` | `projects/<p>` |
+
+For each expanded index path: use its working copy if present under `$TMPDIR/wiki-publish/`; else pull live via `singleByPath` and patch per wiki-write rules before Plan B.
+
+**Pull discipline:** index page(s) first (section index, then project root for leaves); exact propagation-table paths only — never `pages.list` by prefix, never bulk-pull the project tree or sibling leaves.
+
+Indexes are almost always **update** (not create). If an index page is missing, stop and ask — run `/wiki-write` for the section template first.
+
+### Mutate order
+
+1. Leaf or section page (create or update).
+2. Section index (when leaf).
+3. Project root.
+
 ## Gotchas
 
 - Create may succeed while GraphQL errors on selecting nullable `page.locale` — trust `responseResult` + `singleByPath` verify.

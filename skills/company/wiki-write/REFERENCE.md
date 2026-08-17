@@ -51,6 +51,7 @@ Example: `projects/lao-post/workflows/rider-delivery` → `projects-lao-post-wor
 
 ## Fill rules
 
+- Mermaid: Wiki.js renders **8.8.2**. Use diagram syntax supported by that release only (no newer-only features).
 - Replace every `<placeholder>`.
 - Delete blockquoted template guidance from the published body.
 - Keep Status lines (`active` / `todo` / `n/a` + Owner/Since/Reason as the template requires).

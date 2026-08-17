@@ -70,7 +70,8 @@ Completion: one markdown file written; template guidance blockquotes removed; pl
 
 1. Working-copy path: `$TMPDIR/wiki-publish/<path-with-/-as-->.md`.
 2. Write the filled page (title from first `#` unless overridden).
-3. Show path + destination wiki URL form. Stop for the user to review.
+3. Mermaid diagrams: Wiki.js renders **Mermaid 8.8.2** — use only syntax supported by that version.
+4. Show path + destination wiki URL form. Stop for the user to review.
 
 ---
 

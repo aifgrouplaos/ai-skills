@@ -1,8 +1,8 @@
 ---
 name: wiki-write-lao
 description: >
-  Translate one English Engineering Wiki page into Lao — read English,
-  write a Lao working copy under the Thai Wiki.js locale. Never publishes.
+  Translate one English wiki page (/en/…) into Lao — read English, write a
+  Lao working copy under the Thai Wiki.js locale. Never publishes.
   User-invoked only.
 disable-model-invocation: true
 ---
@@ -22,7 +22,7 @@ Env: `WIKI_URL` + `WIKI_API_KEY` required. Missing either → notify user and st
 Translation rules, path parsing, propagation tables: [REFERENCE.md](REFERENCE.md).  
 Prefer `curl` if Python SSL verify fails.
 
-Speak locale-absolute paths (`/th/projects/<name>/…`). GraphQL `path` omits `th/`.
+Speak locale-absolute paths (`/th/…`). GraphQL `path` omits `th/`.
 
 ---
 
@@ -30,8 +30,8 @@ Speak locale-absolute paths (`/th/projects/<name>/…`). GraphQL `path` omits `t
 
 Completion: exactly one GraphQL `path` is known; English source URL stated (`$WIKI_URL/en/<path>`).
 
-1. Parse user input → GraphQL path (strip host, `/en/`, `/th/`). Examples: `/en/projects/lao-post/overview` → `projects/lao-post/overview`.
-2. **One path per run** — a project leaf, section, or project root under `projects/<p>/…`.
+1. Parse user input → GraphQL path (strip host, `/en/`, `/th/`). Examples: `/en/projects/lao-post/overview` → `projects/lao-post/overview`; `/en/standards/templates/workflow` → `standards/templates/workflow`.
+2. **One path per run** — any English page (`/en/<path>`). Not limited to `projects/`.
 3. If the user names multiple paths → ask which one for this pass.
 
 ---
@@ -44,7 +44,7 @@ Completion: English markdown loaded; auth OK.
 2. **English source** (in order):
    - `$TMPDIR/wiki-publish/<path-with-/-as-->.md` if present (unpublished English draft).
    - Else `singleByPath(path, locale: "en")` on the live wiki.
-3. If neither exists → notify user and stop (author English with `/wiki-write` first).
+3. If neither exists → notify user and stop (an English `/en/<path>` page must exist first).
 
 ---
 
@@ -52,7 +52,7 @@ Completion: English markdown loaded; auth OK.
 
 Completion: glossary pulled for term hints, or user declined / none exists.
 
-Only when the user asks for consistent domain terms: pull one English glossary via `singleByPath` — `projects/<p>/backend/glossary` or `projects/<p>/frontend/glossary` (ask side if unclear). One cheap read; skip if missing.
+Only when the user asks for consistent domain terms **and** the target is under `projects/<p>/`: pull one English glossary via `singleByPath` — `projects/<p>/backend/glossary` or `projects/<p>/frontend/glossary` (ask side if unclear). One cheap read; skip if missing or the target is not a project page.
 
 ---
 
@@ -69,14 +69,11 @@ Completion: Lao markdown satisfies every rule in [REFERENCE.md](REFERENCE.md#tra
 
 ## Step 5 — Write *working copy* (+ *index propagation*)
 
-Completion: Lao leaf/section `.th.md` written; upstream `th` index working copies patched when applicable; links use `/th/…`.
+Completion: Lao `.th.md` written; upstream `th` index working copies patched only when the path is a project leaf/section; links use `/th/…`.
 
 1. Working-copy path: `$TMPDIR/wiki-publish/<path-with-/-as-->.th.md`.
 2. Title = translated first `#` heading unless the user overrides.
-3. **Index propagation** — per [REFERENCE.md](REFERENCE.md#index-propagation): pull live `th` indexes **first** (`locale: "th"`, exact paths only); patch links to `/th/<path>`; write `.th.md` index working copies.
-   - **Leaf** (`…/workflows/<slug>`, `…/integrations/<slug>`, `…/runbooks/<slug>`): section index, then project root.
-   - **Section** (`overview`, `backend`, `frontend`, `workflows`, `integrations`, `runbooks`, `api`): project root only.
-   - Skip only when the user explicitly opts out.
+3. **Index propagation** — only when the path matches the project tables in [REFERENCE.md](REFERENCE.md#index-propagation). Otherwise write the one `.th.md` and skip. When it matches: pull live `th` indexes **first** (`locale: "th"`, exact paths only); patch links to `/th/<path>`; write `.th.md` index working copies. Skip if the user opts out.
 4. Show every `.th.md` path + destination URL (`$WIKI_URL/th/<path>`). Stop for review.
 
 ---
@@ -85,7 +82,7 @@ Completion: Lao leaf/section `.th.md` written; upstream `th` index working copie
 
 Completion: user knows next action; session does not mutate Wiki.js.
 
-1. Remind: publish with `/wiki-publish` for **every** `.th.md` working copy from this pass (leaf/section + any index patches). Use `/th/…` URLs so publish resolves `locale: "th"`.
+1. Remind: publish with `/wiki-publish` for **every** `.th.md` working copy from this pass (page + any index patches). Use `/th/…` URLs so publish resolves `locale: "th"`.
 2. Ask whether to *translate* another single path or stop.
 
 ---
@@ -96,5 +93,5 @@ Completion: user knows next action; session does not mutate Wiki.js.
 - One GraphQL path per *focus* pass.
 - English is canonical; *translate* the loaded English body into Lao — no template *menu*, no grill, no web research.
 - Author `.th.md` working copies; `/wiki-publish` performs mutate at `locale: "th"`.
-- Leaf and section targets trigger `th` *index propagation* unless the user opts out.
+- Project leaf/section targets trigger `th` *index propagation* unless the user opts out; other `/en/…` paths write one `.th.md` only.
 - Propagation pulls **index paths first**, exact paths only — no folder listings, no unrelated pages.

@@ -26,8 +26,8 @@ Source locale: `"en"`. Target locale: `"th"` (Wiki.js has no `lo` — ADR-0003).
 | User input | GraphQL path |
 |---|---|
 | `/en/projects/lao-post/workflows/rider-delivery` | `projects/lao-post/workflows/rider-delivery` |
-| `/th/projects/lao-post/overview` | `projects/lao-post/overview` |
-| `projects/lao-post/backend` | `projects/lao-post/backend` |
+| `/en/standards/templates/workflow` | `standards/templates/workflow` |
+| `/th/home` | `home` |
 | `$WIKI_URL/en/projects/lao-post` | `projects/lao-post` |
 
 Strip host and locale prefix; **path never contains `en/` or `th/`**.
@@ -39,14 +39,14 @@ Strip host and locale prefix; **path never contains `en/` or `th/`**.
 | 1 | `$TMPDIR/wiki-publish/<path-with-/-as-->.md` |
 | 2 | Live wiki: `singleByPath(path, locale: "en")` |
 
-If both are missing, stop — run `/wiki-write` for the English page first.
+If both are missing, stop — an English `/en/<path>` page must exist first.
 
 ## Working copy filename
 
 | GraphQL path | Lao working copy (locale `th`) |
 |---|---|
 | `projects/lao-post/overview` | `$TMPDIR/wiki-publish/projects-lao-post-overview.th.md` |
-| `projects/lao-post/workflows/rider-delivery` | `$TMPDIR/wiki-publish/projects-lao-post-workflows-rider-delivery.th.md` |
+| `standards/templates/workflow` | `$TMPDIR/wiki-publish/standards-templates-workflow.th.md` |
 
 English and Lao working copies for the same path differ by the `.th` suffix before `.md` (filename follows **locale**, not document language).
 
@@ -66,7 +66,9 @@ Write Lao, not Thai. **Links:** every in-body href `/en/<path>` → `/th/<path>`
 
 ## Index propagation
 
-Same path topology as [wiki-write REFERENCE](../wiki-write/REFERENCE.md#index-propagation). The Lao pass differs by locale `th`, link prefix `/th/`, and working-copy suffix `.th.md`.
+Apply **only** when the target GraphQL path matches a row below (same topology as [wiki-write REFERENCE](../wiki-write/REFERENCE.md#index-propagation)). Any other `/en/…` path (standards, home, unlisted trees) writes **one** `.th.md` — no extra pulls, no invented indexes.
+
+The Lao pass uses locale `th`, link prefix `/th/`, and working-copy suffix `.th.md`.
 
 ### Leaf → indexes
 
@@ -109,7 +111,7 @@ Project root (`projects/<p>`) has no upstream index to patch.
 
 ### Missing `th` parent
 
-If a `th` index page does not exist yet (`singleByPath` returns no `id` for `locale: "th"`), stop and ask — create the `th` project tree (bootstrap `th` indexes) before propagating.
+If a `th` **index** page in the tables above does not exist yet (`singleByPath` returns no `id` for `locale: "th"`), stop and ask — bootstrap that `th` index before propagating. For non-table paths, parent-page creates are `/wiki-publish`'s job.
 
 ## Optional glossary paths
 

@@ -1,6 +1,6 @@
 {
   "name": "aif-skills",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "AIF Group Laos agent skills — company wiki workflows plus engineering and productivity skills.",
   "author": {
     "name": "AIF Group Laos",
@@ -17,6 +17,7 @@
   "skills": [
     "./skills/company/wiki-publish",
     "./skills/company/wiki-write",
+    "./skills/company/wiki-write-lao",
     "./skills/engineering/ask-matt",
     "./skills/engineering/code-review",
     "./skills/engineering/codebase-design",

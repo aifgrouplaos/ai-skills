@@ -5,6 +5,18 @@ All notable changes to this project are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2026-08-18
+
+### Added
+
+- **`wiki-write-lao`** company skill — translate one English wiki page into a Lao locale pair; write `.lo.md` working copies; hand off to `/wiki-publish`.
+
+### Changed
+
+- **`wiki-publish`** resolves `locale: "lo"` from `/lo/…` URLs and `.lo.md` working copies.
+- **`wiki-write`** handoff mentions `/wiki-write-lao` for Lao locale pairs.
+- **`CONTEXT.md`** glossary — Locale, Locale pair, Wiki write Lao; Wiki write is English-only.
+
 ## [1.1.0] - 2026-08-17
 
 ### Added
@@ -29,5 +41,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Repository docs: `CONTEXT.md`, `AGENTS.md`, ADRs for env-only wiki host and ephemeral working copies.
 - Claude plugin marketplace config (`.claude-plugin/marketplace.json`, `.claude-plugin/plugin.json`).
 
+[1.2.0]: https://github.com/aifgrouplaos/ai-skills/releases/tag/v1.2.0
 [1.1.0]: https://github.com/aifgrouplaos/ai-skills/releases/tag/v1.1.0
 [1.0.0]: https://github.com/aifgrouplaos/ai-skills/releases/tag/v1.0.0

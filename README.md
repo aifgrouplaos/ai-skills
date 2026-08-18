@@ -26,7 +26,7 @@ npx skills@latest add git@github.com:aifgrouplaos/ai-skills.git
 
 Then invoke in the agent as `/skill-name` (e.g. `/wiki-publish`, `/caveman`, `/tdd`).
 
-## Environment (wiki-write / wiki-publish)
+## Environment (wiki-write / wiki-write-lao / wiki-publish)
 
 Both required — these Skills fail closed and notify you if either is missing:
 
@@ -50,7 +50,8 @@ Grouped under `skills/<bucket>/<name>/`. Upstream pins and licenses: [`third-par
 
 | Skill | What it does |
 |---|---|
-| [`wiki-write`](./skills/company/wiki-write/) | Author one page from a live standards template (grill placeholders) → working copy; never publishes |
+| [`wiki-write`](./skills/company/wiki-write/) | Author one **English** page from a live standards template (grill placeholders) → working copy; never publishes |
+| [`wiki-write-lao`](./skills/company/wiki-write-lao/) | *Translate* one English page → Lao locale pair → `.lo.md` working copy; never publishes |
 | [`wiki-publish`](./skills/company/wiki-publish/) | Bootstrap/update an ephemeral working copy, then create/update Wiki.js pages via GraphQL after exact `APPROVE` |
 
 ### `engineering/` — daily code work

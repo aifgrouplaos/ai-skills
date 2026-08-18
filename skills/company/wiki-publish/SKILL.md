@@ -26,8 +26,8 @@ Speak **locale-absolute** URLs to the user (`/en/standards/…`, `/en/projects/�
 Completion: every target has `locale`, GraphQL `path`, working-copy path, intended `title`, and a create/update intent once preflight runs.
 
 1. Parse user request into wiki path(s) (`/en/standards/templates/overview` or `./standards/templates/overview` → GraphQL path `standards/templates/overview`).
-2. Locale: site `/en/…` → `locale: "en"`; **path has no `en/` prefix**.
-3. Working-copy path: `$TMPDIR/wiki-publish/<path-with-/-as-->.md` (e.g. `standards-templates-overview.md`).
+2. Locale: `/en/…` → `locale: "en"`; `/lo/…` → `locale: "lo"`; **path has no locale prefix**.
+3. Working-copy path: `$TMPDIR/wiki-publish/<path-with-/-as-->.md` for `en`; same stem with `.lo.md` for `lo` (e.g. `projects-foo-overview.lo.md`).
 4. If the working copy is missing → **Step 0b (bootstrap)**. If present → use it as `content`.
 5. Title = first `#` heading unless the user overrides.
 6. If authoring markdown that will be published, in-body links must be locale-absolute (`/en/…`), not `./` or `../`.

@@ -96,9 +96,12 @@ mutation (
 |---|---|
 | `standards/templates/overview` | `standards-templates-overview.md` |
 | `projects/lao-post` | `projects-lao-post.md` |
+| `projects/lao-post` (locale `lo`) | `projects-lao-post.lo.md` |
 | leaf `README` on wiki | bare path → same slug file |
 
-Locale stays in `locale`, never in `path`.
+Locale stays in `locale`, never in `path`. For `locale: "lo"`, resolve the `.lo.md` working copy; for `en`, the plain `.md` file.
+
+When patching indexes for `locale: "lo"`, link hrefs use `/lo/…` (mirror wiki-write `/en/…` rules).
 
 ## Template pull
 

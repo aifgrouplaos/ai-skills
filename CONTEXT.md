@@ -10,7 +10,15 @@ This private GitHub repository (`aifgrouplaos/ai-skills`). It holds Skills for i
 
 ## Wiki page (durable)
 
-A published page on the company Wiki.js host. The wiki is the durable store for Engineering Wiki content.
+A published page on the company Wiki.js host, identified by **(path, locale)** — same GraphQL path can exist in multiple locales (e.g. English and Lao). The wiki is the durable store for Engineering Wiki content.
+
+## Locale (wiki)
+
+The Wiki.js language code for a Wiki page (`en`, `lo`, …). Locale appears in the live URL (`$WIKI_URL/<locale>/<path>`) and in GraphQL as a separate field — never inside `path`. Project slugs stay English across locales.
+
+## Locale pair
+
+Two Wiki pages that share the same GraphQL path but differ by locale (e.g. `/en/projects/<p>/overview` and `/lo/projects/<p>/overview`). English is canonical; Lao is derived from the English page.
 
 ## Working copy (ephemeral)
 
@@ -32,7 +40,15 @@ The Wiki publish branch when no working copy exists yet. Modes: **stub**, **pull
 
 ## Wiki write
 
-The Skill that authors one Engineering Wiki page per run from a live `standards/templates/…` template. It never mutates Wiki.js. Flow: resolve **project name** from the live wiki `projects` index (skip the ask when the slug already exists; never use git repo name) → offer template menu from the live templates index (not a full `standards/` dump) → user picks one template → pull that template only → grill from its placeholders → fill codebase-second when code exists → write one working copy under `projects/<project-name>/…` → hand off to `/wiki-publish`.
+The Skill that authors one **English** Engineering Wiki page per run from a live `standards/templates/…` template. It never mutates Wiki.js. Flow: resolve **project name** from the live wiki `projects` index (skip the ask when the slug already exists; never use git repo name) → offer template menu from the live templates index (not a full `standards/` dump) → user picks one template → pull that template only → grill from its placeholders → fill codebase-second when code exists → write one English working copy under `projects/<project-name>/…` → hand off to `/wiki-publish`.
+
+_Avoid_: emitting Lao in the same run; re-grilling for Lao (use **Wiki write Lao**).
+
+## Wiki write Lao
+
+The Skill that authors one **Lao** Wiki page per run by translating an existing English page at the same GraphQL path. It never mutates Wiki.js. Flow: user supplies one English target path → read English from a working copy if present, else the live English Wiki page → translate to Lao → write one Lao working copy → hand off to `/wiki-publish`. No template menu, no grill.
+
+_Avoid_: "version" when you mean locale; a second GraphQL path for Lao; cloning the Wiki write interview flow.
 
 ## Project name (wiki)
 

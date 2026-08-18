@@ -1,10 +1,8 @@
 # ai-skills
 
-Private company catalog of agent Skills for [AIF Group Laos](https://github.com/aifgrouplaos). Colleagues install with [`npx skills`](https://skills.sh).
+Company catalog of agent Skills for [AIF Group Laos](https://github.com/aifgrouplaos). Install with [`npx skills`](https://skills.sh).
 
 ## Install
-
-Requires GitHub access to this private repo (`gh auth login` and/or SSH keys that can clone it).
 
 All skills in this catalog (interactive picker):
 
@@ -16,12 +14,6 @@ One skill:
 
 ```bash
 npx skills@latest add aifgrouplaos/ai-skills@wiki-publish
-```
-
-SSH if HTTPS auth is awkward:
-
-```bash
-npx skills@latest add git@github.com:aifgrouplaos/ai-skills.git
 ```
 
 Then invoke in the agent as `/skill-name` (e.g. `/wiki-publish`, `/caveman`, `/tdd`).

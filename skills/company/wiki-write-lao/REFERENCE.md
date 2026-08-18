@@ -19,6 +19,8 @@ query ($path: String!, $locale: String!) {
 
 Source locale: `"en"`. Target locale: `"lo"`.
 
+**Session language:** agent messages to the user stay English. Only *working copy* file bodies are Lao.
+
 ## Path parsing
 
 | User input | GraphQL path |

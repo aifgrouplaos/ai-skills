@@ -12,7 +12,9 @@ disable-model-invocation: true
 
 Env: `WIKI_URL` + `WIKI_API_KEY` required. Missing either → notify user and stop. Never echo the key.
 
-**Leading words:** *translate* · *focus* · *working copy* · *index propagation* · *handoff*
+**Leading words:** *translate* · *focus* · *working copy* · *index propagation* · *handoff* · *session English*
+
+**Session language:** reply to the user in **English** for the whole run — status, questions, summaries, handoff. Lao belongs **only** in `.lo.md` *working copy* files, not in chat.
 
 Translation rules, path parsing, propagation tables: [REFERENCE.md](REFERENCE.md).  
 Prefer `curl` if Python SSL verify fails.
@@ -87,6 +89,7 @@ Completion: user knows next action; session does not mutate Wiki.js.
 
 ## Guards (positive form)
 
+- *Session English* — chat with the user in English; Lao output goes in `.lo.md` files only.
 - One GraphQL path per *focus* pass.
 - English is canonical; *translate* the loaded English body — no template *menu*, no grill, no web research.
 - Author `.lo.md` working copies; `/wiki-publish` performs mutate.

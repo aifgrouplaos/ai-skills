@@ -46,9 +46,9 @@ _Avoid_: emitting Lao in the same run; re-grilling for Lao (use **Wiki write Lao
 
 ## Wiki write Lao
 
-The Skill that authors one **Lao** Wiki page per run by translating an existing English page at the same GraphQL path. It never mutates Wiki.js. Flow: user supplies one English target path → read English from a working copy if present, else the live English Wiki page → translate to Lao → write one Lao working copy → hand off to `/wiki-publish`. No template menu, no grill.
+The Skill that authors one **Lao** Wiki page per run by translating an existing English page at the same GraphQL path. It never mutates Wiki.js. Flow: user supplies one English target path → read English from a working copy if present, else the live English Wiki page → translate to Lao → write one Lao working copy → hand off to `/wiki-publish`. No template menu, no grill. Agent chat stays English; Lao is only in the working copy.
 
-_Avoid_: "version" when you mean locale; a second GraphQL path for Lao; cloning the Wiki write interview flow.
+_Avoid_: "version" when you mean locale; a second GraphQL path for Lao; cloning the Wiki write interview flow; replying to the user in Lao during the skill run.
 
 ## Project name (wiki)
 

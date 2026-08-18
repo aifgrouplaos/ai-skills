@@ -38,7 +38,7 @@ The Skill that creates or updates live Wiki.js pages from a Working copy via Gra
 
 ## Wiki host
 
-The Wiki.js base URL used by Wiki publish. Supplied only via environment (`WIKI_URL`) — never a hard-coded default in the Skill. Missing `WIKI_URL` or `WIKI_API_KEY` fails closed: the agent notifies the user and stops — it does not invent a host or echo the key.
+The Wiki.js base URL used by Wiki publish / Wiki write / Wiki write Lao. Taken from workspace `.env` keys `WIKI_URL` and `WIKI_API_KEY` only — never a hard-coded default, never the rest of `.env`. Missing file or either value fails closed: the agent notifies the user and stops — it does not invent a host or echo the key.
 
 ## Step 0 (bootstrap)
 

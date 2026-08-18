@@ -2,7 +2,7 @@
 
 ## Auth / read
 
-Same as wiki-publish: `POST $WIKI_URL/graphql` with `Authorization: Bearer $WIKI_API_KEY`.
+Same as wiki-publish: load `WIKI_URL` and `WIKI_API_KEY` from workspace `.env` (**those two keys only** — [wiki-publish Auth](../wiki-publish/REFERENCE.md#auth)); then `POST $WIKI_URL/graphql` with `Authorization: Bearer $WIKI_API_KEY`.
 
 ```graphql
 query ($path: String!, $locale: String!) {

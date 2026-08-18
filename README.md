@@ -28,18 +28,18 @@ Then invoke in the agent as `/skill-name` (e.g. `/wiki-publish`, `/caveman`, `/t
 
 ## Environment (wiki-write / wiki-write-lao / wiki-publish)
 
-Both required — these Skills fail closed and notify you if either is missing:
+Both required in a gitignored workspace `.env`. The wiki Skills read **only these two keys** (they do not `source` the rest of the file). Missing file or either value → fail closed and notify you:
 
 | Variable | Purpose |
 |---|---|
 | `WIKI_URL` | Wiki.js base URL (no trailing path) |
 | `WIKI_API_KEY` | Bearer token for GraphQL — **never commit** |
 
-Example (local only, e.g. shell profile or a gitignored `.env`):
+Example (gitignored `.env`):
 
-```bash
-export WIKI_URL=https://wiki.aifgrouplaos.com
-export WIKI_API_KEY=…   # from Wiki.js API access — do not paste into chat/PRs
+```
+WIKI_URL=https://wiki.aifgrouplaos.com
+WIKI_API_KEY=…   # from Wiki.js API access — do not paste into chat/PRs
 ```
 
 ## Skills

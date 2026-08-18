@@ -11,7 +11,7 @@ disable-model-invocation: true
 
 *Translate* one English **Wiki page** into its Lao **locale pair** at the same GraphQL path. Write ephemeral *working copy* files only — hand off to `/wiki-publish`.
 
-Env: `WIKI_URL` + `WIKI_API_KEY` required. Missing either → notify user and stop. Never echo the key.
+Env: load `WIKI_URL` + `WIKI_API_KEY` from workspace `.env` (**those two keys only**). Missing file or either value → notify user and stop. Never echo the key. Never `source` `.env`.
 
 **Leading words:** *translate* · *focus* · *working copy* · *index propagation* · *handoff* · *session English*
 

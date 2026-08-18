@@ -9,7 +9,7 @@ disable-model-invocation: true
 # Wiki publish (Wiki.js GraphQL)
 
 Endpoint: `POST $WIKI_URL/graphql`  
-Auth: `Authorization: Bearer $WIKI_API_KEY` (env / `.env` — never print the key)
+Auth: `Authorization: Bearer $WIKI_API_KEY` — load `WIKI_URL` and `WIKI_API_KEY` from workspace `.env` (**those two keys only**; never print the key)
 
 **Leading words:** *preflight* · *working copy* · *index propagation* · *plan* · *APPROVE* · *mutate* · *cleanup*
 
@@ -59,7 +59,7 @@ Show **Plan A**:
 
 Completion: auth OK; for each path, parents exist; create-vs-update decided.
 
-1. Require `WIKI_URL` and `WIKI_API_KEY`. If either is missing → **notify the user** and stop. Do not invent a host. Do not echo the key.
+1. Load `WIKI_URL` and `WIKI_API_KEY` from workspace `.env` — **those two keys only** ([REFERENCE.md](REFERENCE.md#auth)). If the file or either value is missing → **notify the user** and stop. Do not invent a host. Do not echo the key. Do not `source` `.env`.
 2. `pages.list(limit: 1)` (or equivalent) — fail closed on auth errors; notify the user.
 3. For each target: `pages.singleByPath(path, locale)` → **update** if `id`, else **create**.
 4. For **create**, ensure parent path exists. If missing, add parent creates to Plan B (parents first) or stop and ask.

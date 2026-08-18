@@ -11,7 +11,7 @@ disable-model-invocation: true
 
 Read templates from Wiki.js; write an ephemeral *working copy*. **Never** mutate the wiki — hand off to `/wiki-publish`.
 
-Env: `WIKI_URL` + `WIKI_API_KEY` required. Missing either → notify user and stop. Never echo the key.
+Env: load `WIKI_URL` + `WIKI_API_KEY` from workspace `.env` (**those two keys only**). Missing file or either value → notify user and stop. Never echo the key. Never `source` `.env`.
 
 **Leading words:** *menu* · *focus* · *grill* · *working copy* · *index propagation* · *handoff*
 

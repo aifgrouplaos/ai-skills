@@ -2,6 +2,8 @@
 
 ## Auth
 
+Load credentials from the **workspace `.env`**, then:
+
 ```http
 POST {WIKI_URL}/graphql
 Authorization: Bearer <WIKI_API_KEY>
@@ -10,7 +12,12 @@ Content-Type: application/json
 
 Body: `{ "query": "...", "variables": { ... } }`
 
-Both `WIKI_URL` and `WIKI_API_KEY` are required (no hard-coded host default).
+### `.env` keys (only these two)
+
+1. Read the workspace `.env` (repo root). Missing file → notify the user and stop.
+2. Take **only** `WIKI_URL` and `WIKI_API_KEY` (optional `export ` prefix; optional quotes). Empty after extract → notify and stop.
+3. Use those two values for GraphQL. Leave every other `.env` line unread — do not `source` the file, do not export the rest of the file into the shell.
+4. No hard-coded host. Never print `WIKI_API_KEY`.
 
 ## Read
 

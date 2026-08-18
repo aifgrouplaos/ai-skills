@@ -51,7 +51,7 @@ Grouped under `skills/<bucket>/<name>/`. Upstream pins and licenses: [`third-par
 | Skill | What it does |
 |---|---|
 | [`wiki-write`](./skills/company/wiki-write/) | Author one **English** page from a live standards template (grill placeholders) → working copy; never publishes |
-| [`wiki-write-lao`](./skills/company/wiki-write-lao/) | *Translate* one English page → Lao locale pair → `.lo.md` working copy; never publishes |
+| [`wiki-write-lao`](./skills/company/wiki-write-lao/) | *Translate* one English page → Lao body under Wiki.js locale `th` → `.th.md` working copy; never publishes |
 | [`wiki-publish`](./skills/company/wiki-publish/) | Bootstrap/update an ephemeral working copy, then create/update Wiki.js pages via GraphQL after exact `APPROVE` |
 
 ### `engineering/` — daily code work

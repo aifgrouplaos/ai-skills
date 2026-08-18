@@ -17,7 +17,7 @@ query ($path: String!, $locale: String!) {
 }
 ```
 
-Source locale: `"en"`. Target locale: `"lo"`.
+Source locale: `"en"`. Target locale: `"th"` (Wiki.js has no `lo` — ADR-0003). Document language of the target body: **Lao**.
 
 **Session language:** agent messages to the user stay English. Only *working copy* file bodies are Lao.
 
@@ -26,11 +26,11 @@ Source locale: `"en"`. Target locale: `"lo"`.
 | User input | GraphQL path |
 |---|---|
 | `/en/projects/lao-post/workflows/rider-delivery` | `projects/lao-post/workflows/rider-delivery` |
-| `/lo/projects/lao-post/overview` | `projects/lao-post/overview` |
+| `/th/projects/lao-post/overview` | `projects/lao-post/overview` |
 | `projects/lao-post/backend` | `projects/lao-post/backend` |
 | `$WIKI_URL/en/projects/lao-post` | `projects/lao-post` |
 
-Strip host and locale prefix; **path never contains `en/` or `lo/`**.
+Strip host and locale prefix; **path never contains `en/` or `th/`**.
 
 ## English source resolution
 
@@ -43,16 +43,16 @@ If both are missing, stop — run `/wiki-write` for the English page first.
 
 ## Working copy filename
 
-| GraphQL path | Lao working copy |
+| GraphQL path | Lao working copy (locale `th`) |
 |---|---|
-| `projects/lao-post/overview` | `$TMPDIR/wiki-publish/projects-lao-post-overview.lo.md` |
-| `projects/lao-post/workflows/rider-delivery` | `$TMPDIR/wiki-publish/projects-lao-post-workflows-rider-delivery.lo.md` |
+| `projects/lao-post/overview` | `$TMPDIR/wiki-publish/projects-lao-post-overview.th.md` |
+| `projects/lao-post/workflows/rider-delivery` | `$TMPDIR/wiki-publish/projects-lao-post-workflows-rider-delivery.th.md` |
 
-English and Lao working copies for the same path differ by the `.lo` suffix before `.md`.
+English and Lao working copies for the same path differ by the `.th` suffix before `.md` (filename follows **locale**, not document language).
 
 ## Translation
 
-| Translate | Keep in English |
+| Translate into Lao | Keep in English |
 |---|---|
 | `#` title, headings, prose, list text | Fenced code blocks and inline `` `code` `` |
 | Table cells (non-code) | GraphQL paths, URL path segments, slugs |
@@ -60,13 +60,13 @@ English and Lao working copies for the same path differ by the `.lo` suffix befo
 | Markdown link text | Status field keys (`Owner`, `Since`, `Reason`) |
 | | Product names when the English page keeps them |
 
-**Links:** every in-body href `/en/<path>` → `/lo/<path>`. No `./` or `../`.
+Write Lao, not Thai. **Links:** every in-body href `/en/<path>` → `/th/<path>`. No `./` or `../`.
 
 **Ambiguous domain term:** ask the user. Optional glossary (Step 3) is the only extra wiki read for terminology — no web search.
 
 ## Index propagation
 
-Same path topology as [wiki-write REFERENCE](../wiki-write/REFERENCE.md#index-propagation). Lao differs only by locale, link prefix, and working-copy suffix.
+Same path topology as [wiki-write REFERENCE](../wiki-write/REFERENCE.md#index-propagation). The Lao pass differs by locale `th`, link prefix `/th/`, and working-copy suffix `.th.md`.
 
 ### Leaf → indexes
 
@@ -92,24 +92,24 @@ Project root (`projects/<p>`) has no upstream index to patch.
 
 ### Pull discipline
 
-- Pull Lao indexes with `locale: "lo"` via `singleByPath` — **index first**, exact propagation-table paths only.
+- Pull indexes with `locale: "th"` via `singleByPath` — **index first**, exact propagation-table paths only.
 - Never `pages.list` by prefix; never bulk-fetch `projects/<p>/*`.
 - **Leaf order:** (1) section index, (2) project root.
 - **Section:** project root only.
 
 ### Patch rules
 
-1. Pull live Lao index content before editing.
-2. Add a list entry if missing: `- [<translated title>](/lo/<path>)` — match list style on the page.
-3. Link href = locale-absolute `/lo/` + GraphQL path.
-4. Link text = the new page's translated `#` title.
+1. Pull live `th` index content before editing.
+2. Add a list entry if missing: `- [<translated title>](/th/<path>)` — match list style on the page.
+3. Link href = locale-absolute `/th/` + GraphQL path.
+4. Link text = the new page's translated `#` title (Lao).
 5. Do not duplicate an existing link to the same path; update link text if the title changed.
 6. Preserve existing content and ordering.
-7. One `.lo.md` working copy per index path under `$TMPDIR/wiki-publish/`.
+7. One `.th.md` working copy per index path under `$TMPDIR/wiki-publish/`.
 
-### Missing Lao parent
+### Missing `th` parent
 
-If a Lao index page does not exist yet (`singleByPath` returns no `id` for `locale: "lo"`), stop and ask — create the Lao project tree (English `/wiki-write` + `/wiki-publish` for structure, or bootstrap Lao indexes) before propagating.
+If a `th` index page does not exist yet (`singleByPath` returns no `id` for `locale: "th"`), stop and ask — create the `th` project tree (bootstrap `th` indexes) before propagating.
 
 ## Optional glossary paths
 

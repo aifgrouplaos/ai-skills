@@ -86,7 +86,7 @@ Completion: leaf/section markdown written; upstream index working copies patched
 
 Completion: user knows next action; session does not mutate Wiki.js.
 
-1. Remind: publish with `/wiki-publish` for **every** working copy from this pass (leaf/section + any index patches) when ready. For Lao, run `/wiki-write-lao` then publish the `.lo.md` copies with `/lo/…` URLs.
+1. Remind: publish with `/wiki-publish` for **every** working copy from this pass (leaf/section + any index patches) when ready. For Lao, run `/wiki-write-lao` then publish the `.th.md` copies with `/th/…` URLs.
 2. Ask whether to run another **one-template** pass (new *menu* pick) or stop.
 
 ---

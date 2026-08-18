@@ -96,12 +96,12 @@ mutation (
 |---|---|
 | `standards/templates/overview` | `standards-templates-overview.md` |
 | `projects/lao-post` | `projects-lao-post.md` |
-| `projects/lao-post` (locale `lo`) | `projects-lao-post.lo.md` |
+| `projects/lao-post` (locale `th`) | `projects-lao-post.th.md` |
 | leaf `README` on wiki | bare path → same slug file |
 
-Locale stays in `locale`, never in `path`. For `locale: "lo"`, resolve the `.lo.md` working copy; for `en`, the plain `.md` file.
+Locale stays in `locale`, never in `path`. For `locale: "th"`, resolve the `.th.md` working copy; for `en`, the plain `.md` file. Lao **document language** is published at locale `th` (ADR-0003).
 
-When patching indexes for `locale: "lo"`, link hrefs use `/lo/…` (mirror wiki-write `/en/…` rules).
+When patching indexes for `locale: "th"`, link hrefs use `/th/…` (mirror wiki-write `/en/…` rules).
 
 ## Template pull
 
@@ -138,4 +138,4 @@ Indexes are almost always **update** (not create). If an index page is missing, 
 - Parent paths must exist before child creates.
 - API Access must be enabled; new keys sometimes need a Wiki.js restart.
 - Prefer `curl` if Python HTTPS SSL verify fails on the machine.
-- In-body markdown links must be locale-absolute (`/en/standards/…`, `/en/projects/…`). `./standards/…` or `../…` nests under the current page (e.g. `/en/standards/standards/…`).
+- In-body markdown links must be locale-absolute (`/en/…` or `/th/…` matching the page locale). `./standards/…` or `../…` nests under the current page (e.g. `/en/standards/standards/…`).

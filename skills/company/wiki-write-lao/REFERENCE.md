@@ -54,13 +54,16 @@ English and Lao working copies for the same path differ by the `.th` suffix befo
 
 | Translate into Lao | Keep in English |
 |---|---|
-| `#` title, headings, prose, list text | Fenced code blocks and inline `` `code` `` |
+| `#` title, headings, prose, list text | Fenced code blocks (including **mermaid**) and inline `` `code` `` |
 | Table cells (non-code) | GraphQL paths, URL path segments, slugs |
-| Mermaid node labels (8.8.2 syntax only) | API / env / CLI identifiers |
-| Markdown link text | Status field keys (`Owner`, `Since`, `Reason`) |
+| Markdown link text | API / env / CLI identifiers |
+| | Status field keys (`Owner`, `Since`, `Reason`) |
 | | Product names when the English page keeps them |
+| | Entire mermaid diagrams (copy verbatim) |
 
 Write Lao, not Thai. **Links:** every in-body href `/en/<path>` → `/th/<path>`. No `./` or `../`.
+
+**Mermaid (8.8.2):** copy the English ` ```mermaid ` fence unchanged — diagram type, node IDs, arrows, and labels. Wiki.js 8.8.2 reports `Syntax error in graph` when labels are Lao (unquoted Unicode, translated keywords). Heading/prose around the fence can still be Lao.
 
 **Ambiguous domain term:** ask the user. Optional glossary (Step 3) is the only extra wiki read for terminology — no web search.
 

@@ -60,10 +60,10 @@ Only when the user asks for consistent domain terms **and** the target is under 
 
 Completion: Lao markdown satisfies every rule in [REFERENCE.md](REFERENCE.md#translation).
 
-1. *Translate* title, headings, prose, table cell text, Mermaid labels, and link text **into Lao** (not Thai).
-2. Keep code blocks, identifiers, GraphQL paths, URL slugs, and API names in English.
+1. *Translate* title, headings, prose, table cell text, and link text **into Lao** (not Thai).
+2. Keep code blocks (including **mermaid** fences), identifiers, GraphQL paths, URL slugs, and API names in English.
 3. Rewrite in-body links from `/en/…` to `/th/…`.
-4. Mermaid: Wiki.js renders **8.8.2** — syntax supported by that release only.
+4. Copy every ` ```mermaid ` block **verbatim** from the English source — Wiki.js renders **8.8.2**; Lao inside the graph is `Syntax error in graph`.
 
 ---
 

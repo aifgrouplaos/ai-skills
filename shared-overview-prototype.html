@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Prototype — Shared overview outline</title>
+  <style>
+    :root { color-scheme: light; font-family: Inter, ui-sans-serif, system-ui, sans-serif; color: #17231d; background: #edf1eb; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    header { padding: 32px max(24px, calc((100vw - 1080px) / 2)); background: #123c2d; color: white; }
+    header p { max-width: 760px; color: #cde0d6; }
+    main { max-width: 1080px; margin: 0 auto; padding: 28px 24px 112px; }
+    .notice { border-left: 4px solid #d68224; background: #fff7e8; padding: 12px 16px; margin-bottom: 24px; }
+    .variant { display: none; }
+    .variant.active { display: block; }
+    h1 { margin: 0; font-size: clamp(28px, 4vw, 44px); }
+    h2 { margin-top: 34px; border-bottom: 1px solid #b8c5bc; padding-bottom: 8px; }
+    h3 { margin-bottom: 6px; }
+    p, li { line-height: 1.55; }
+    .lede { font-size: 20px; max-width: 760px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
+    .card, .step, .lane { background: white; border: 1px solid #cfD8d1; border-radius: 10px; padding: 16px; }
+    .diagram { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; background: #dfe9e2; padding: 18px; border-radius: 10px; }
+    .node { background: white; border: 1px solid #6f8f7d; border-radius: 8px; padding: 10px 14px; }
+    .arrow { color: #4f6d5d; font-weight: 700; }
+    .meta { color: #557064; font-size: 14px; }
+    .question { color: #1c6047; font-weight: 700; }
+    table { width: 100%; border-collapse: collapse; background: white; }
+    th, td { text-align: left; vertical-align: top; border: 1px solid #c9d4cc; padding: 11px; }
+    th { background: #e0e9e3; }
+    code { background: #e5ebe7; padding: 2px 5px; border-radius: 4px; }
+    .switcher { position: fixed; z-index: 10; left: 50%; bottom: 22px; transform: translateX(-50%); display: flex; align-items: center; gap: 12px; padding: 9px; color: white; background: #101915; border-radius: 999px; box-shadow: 0 8px 30px #0005; }
+    .switcher button { width: 40px; height: 40px; border: 0; border-radius: 50%; background: #e8f2ec; color: #123c2d; font-size: 20px; cursor: pointer; }
+    #variant-label { min-width: 230px; text-align: center; font-weight: 700; }
+  </style>
+</head>
+<body>
+  <!-- Three project-agnostic Shared overview outlines, switchable via ?variant=A|B|C. Lao Post is illustrative test data only. -->
+  <header>
+    <h1>Shared overview outline prototype</h1>
+    <p>Question: can a project overview orient frontend, backend, and occasional BA readers without requiring one stack's internal knowledge?</p>
+  </header>
+  <main>
+    <div class="notice"><strong>PROTOTYPE — throwaway.</strong> Content below uses simplified Lao Post-like examples to test information boundaries. It is not a proposed live page.</div>
+
+    <article class="variant" data-variant="A">
+      <p class="meta">Variant A — Onboarding journey</p>
+      <h1>Lao Post: system overview</h1>
+      <p class="lede">A cross-channel parcel service that lets customers create shipments, staff manage fulfillment, and riders complete delivery.</p>
+      <h2>1. What the system does</h2>
+      <div class="grid">
+        <div class="card"><h3>Customers</h3><p>Create and track parcel deliveries through supported customer channels.</p></div>
+        <div class="card"><h3>Operations</h3><p>Review shipments, coordinate fulfillment, and resolve delivery exceptions.</p></div>
+        <div class="card"><h3>Riders</h3><p>Accept assigned work and report observable delivery outcomes.</p></div>
+      </div>
+      <h2>2. System at a glance</h2>
+      <div class="diagram"><span class="node">Customer/Admin clients</span><span class="arrow">→</span><span class="node">API service</span><span class="arrow">→</span><span class="node">Queue + workers</span><span class="arrow">→</span><span class="node">Delivery integrations</span></div>
+      <p>Clients use authenticated HTTPS contracts. Long-running work crosses a queue boundary. Shared business identifiers connect user-visible shipment state across components.</p>
+      <h2>3. Defining workflows</h2>
+      <ol>
+        <li><strong>Create a shipment</strong> — customer request becomes a trackable shipment. <a href="#">Read workflow</a></li>
+        <li><strong>Rider delivery</strong> — an assigned parcel moves through pickup, attempt, and outcome. <a href="#">Read workflow</a></li>
+        <li><strong>Resolve an exception</strong> — operations staff diagnose and choose a safe next action. <a href="#">Read workflow</a></li>
+      </ol>
+      <p><a href="#">Browse every workflow →</a></p>
+      <h2>4. Cross-stack seams</h2>
+      <table><tr><th>Seam</th><th>Shared convention</th><th>Authority</th></tr><tr><td>Client ↔ API</td><td>Bearer identity; common success/error envelope</td><td><a href="#">API contracts</a></td></tr><tr><td>API ↔ workers</td><td>Asynchronous jobs keyed by shipment identifier</td><td><a href="#">Architecture decision</a></td></tr></table>
+      <h2>5. Environments and next reading</h2>
+      <p>Development, staging, and production entry points are listed without credentials or deployment mechanics.</p>
+      <p><a href="#">Workflows</a> · <a href="#">Integrations</a> · <a href="#">Runbooks</a> · <a href="#">API</a> · <a href="#">Frontend specialist page</a> · <a href="#">Backend specialist page</a></p>
+    </article>
+
+    <article class="variant" data-variant="B">
+      <p class="meta">Variant B — Question-led handbook</p>
+      <h1>Lao Post: answers for a newcomer</h1>
+      <section class="step"><p class="question">What problem does this project solve?</p><p>It coordinates parcel creation, fulfillment, delivery, and tracking across customer, staff, and rider experiences.</p></section>
+      <section class="step"><p class="question">Who interacts with it?</p><p>Customers initiate and track delivery; operations staff manage exceptions; riders perform fulfillment; external carriers exchange delivery events.</p></section>
+      <section class="step"><p class="question">Where are the system boundaries?</p><div class="diagram"><span class="node">User surfaces</span><span class="arrow">→</span><span class="node">Project services</span><span class="arrow">→</span><span class="node">External systems</span></div></section>
+      <section class="step"><p class="question">What happens in normal use?</p><p>Three short defining-journey summaries link directly to their complete Workflow pages. The full catalog lives on <a href="#">Workflows</a>.</p></section>
+      <section class="step"><p class="question">How do components communicate?</p><p>State the transport, trust boundary, authentication flow, common envelope, asynchronous boundary, and shared identifiers—but link payload fields and endpoint definitions to <a href="#">API</a>.</p></section>
+      <section class="step"><p class="question">Where does it run?</p><p>List environment purpose and entry point only. Link deployment and configuration mechanics to repository documentation.</p></section>
+      <section class="step"><p class="question">Where should I go next?</p><p>Choose behavior (<a href="#">Workflows</a>), external relationships (<a href="#">Integrations</a>), incidents (<a href="#">Runbooks</a>), or implementation (<a href="#">Specialist pages</a>).</p></section>
+    </article>
+
+    <article class="variant" data-variant="C">
+      <p class="meta">Variant C — Architecture-first field guide</p>
+      <h1>Lao Post: system field guide</h1>
+      <p class="lede">Start from the deployed system and trace outward to people, behavior, contracts, and environments.</p>
+      <h2>Component map</h2>
+      <div class="grid"><div class="lane"><h3>Experience</h3><p>Customer, admin, and rider surfaces.</p></div><div class="lane"><h3>Service</h3><p>Shared API and business orchestration.</p></div><div class="lane"><h3>Async</h3><p>Queued work and observable processing states.</p></div><div class="lane"><h3>External</h3><p>Carrier and notification relationships.</p></div></div>
+      <h2>Cross-stack responsibility matrix</h2>
+      <table><tr><th>Concern</th><th>System-level answer</th><th>Detail lives in</th></tr><tr><td>Identity</td><td>Which actors cross which trust boundary</td><td>Overview + API links</td></tr><tr><td>Delivery behavior</td><td>Defining journeys and outcomes</td><td>Workflow pages</td></tr><tr><td>External exchange</td><td>Systems, direction, lifecycle</td><td>Integration pages</td></tr><tr><td>Persistence</td><td>Only shared business state</td><td>Backend specialist docs for storage</td></tr></table>
+      <h2>Workflow map</h2>
+      <p>Show three defining workflows as arrows across the four component lanes, then link to the complete catalog. Do not embed detailed steps here.</p>
+      <h2>Environment matrix</h2>
+      <table><tr><th>Environment</th><th>Purpose</th><th>Entry points</th></tr><tr><td>Development</td><td>Local collaboration</td><td>Linked, no setup commands</td></tr><tr><td>Staging</td><td>Integrated verification</td><td>Linked, no credentials</td></tr><tr><td>Production</td><td>Customer traffic</td><td>Linked, no deployment mechanics</td></tr></table>
+      <h2>Continue reading</h2><p><a href="#">Workflows</a> is the primary next stop. API, integrations, runbooks, ADRs, and Specialist pages supply focused depth.</p>
+    </article>
+  </main>
+  <nav class="switcher" aria-label="Prototype variants"><button id="prev" aria-label="Previous variant">←</button><span id="variant-label"></span><button id="next" aria-label="Next variant">→</button></nav>
+  <script>
+    const variants = [
+      { key: 'A', name: 'Onboarding journey' },
+      { key: 'B', name: 'Question-led handbook' },
+      { key: 'C', name: 'Architecture-first field guide' }
+    ];
+    const params = new URLSearchParams(location.search);
+    let index = Math.max(0, variants.findIndex(v => v.key === (params.get('variant') || 'A').toUpperCase()));
+    function render() {
+      const current = variants[index];
+      document.querySelectorAll('.variant').forEach(el => el.classList.toggle('active', el.dataset.variant === current.key));
+      document.getElementById('variant-label').textContent = `${current.key} — ${current.name}`;
+      params.set('variant', current.key);
+      history.replaceState({}, '', `${location.pathname}?${params}`);
+    }
+    function move(delta) { index = (index + delta + variants.length) % variants.length; render(); }
+    document.getElementById('prev').addEventListener('click', () => move(-1));
+    document.getElementById('next').addEventListener('click', () => move(1));
+    addEventListener('keydown', event => {
+      if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName) || document.activeElement.isContentEditable) return;
+      if (event.key === 'ArrowLeft') move(-1);
+      if (event.key === 'ArrowRight') move(1);
+    });
+    render();
+  </script>
+</body>
+</html>

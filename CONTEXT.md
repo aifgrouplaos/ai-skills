@@ -46,7 +46,7 @@ The Wiki publish branch when no working copy exists yet. Modes: **stub**, **pull
 
 ## Wiki write
 
-The Skill that authors one **English** Engineering Wiki page per run from a live `standards/templates/…` template. It never mutates Wiki.js. Flow: resolve **project name** from the live wiki `projects` index (skip the ask when the slug already exists; never use git repo name) → offer template menu from the live templates index (not a full `standards/` dump) → user picks one template → pull that template only → grill from its placeholders → fill codebase-second when code exists → write one English working copy under `projects/<project-name>/…` → hand off to `/wiki-publish`.
+The Skill that authors one **English** Engineering Wiki page per run from a live `standards/templates/…` template. It never mutates Wiki.js. After selecting one template, it routes evidence by page type: Shared templates establish cross-role meaning before code corroboration; backend and frontend inspect code before grilling gaps; ADR establishes the decision before verifying implementation; glossary inspects existing language before resolving ambiguity. Conflicting sources require human resolution. The Skill then writes ephemeral working copies for the selected page and applicable index propagation, and hands off to `/wiki-publish`.
 
 _Avoid_: emitting Lao in the same run; re-grilling for Lao (use **Wiki write Lao**).
 

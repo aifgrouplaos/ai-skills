@@ -13,9 +13,10 @@ Read templates from Wiki.js; write an ephemeral *working copy*. **Never** mutate
 
 Env: load `WIKI_URL` + `WIKI_API_KEY` from workspace `.env` (**those two keys only**). Missing file or either value → notify user and stop. Never echo the key. Never `source` `.env`.
 
-**Leading words:** *menu* · *focus* · *grill* · *working copy* · *index propagation* · *handoff*
+**Leading words:** *menu* · *focus* · *route* · *evidence* · *conflict* · *working copy* · *index propagation* · *handoff*
 
 GraphQL read shapes + template→path map: [REFERENCE.md](REFERENCE.md).  
+Maintainer acceptance scenarios for evidence routing: [SCENARIOS.md](SCENARIOS.md).
 Prefer `curl` if Python SSL verify fails.
 
 Speak locale-absolute paths (`/en/projects/<name>/…`). GraphQL `path` omits `en/`.
@@ -55,14 +56,49 @@ Completion: chosen template body loaded; destination GraphQL `path` known; leaf 
 
 ---
 
-## Step 4 — Grill from placeholders (*focus*)
+## Step 4 — Route evidence + fill placeholders (*focus*)
 
-Completion: every `<placeholder>` in the chosen template has an answer, `todo`/`n/a`+Reason, or an explicit skip the user approved.
+Completion: every `<placeholder>` in the chosen template has a resolved claim, `todo`/`n/a`+Reason, or an explicit skip the user approved; every evidence conflict is resolved by the user.
 
-1. Run `/grilling` (or `/grill-me`) scoped to **this template only**.
-2. Derive questions from: placeholders, the template’s “what this answers / must NOT contain” guidance, and Status fields.
-3. Cold start (no project docs): grill carries product facts. If code exists, use it to pre-fill and only grill gaps.
-4. Stay in *focus* — do not interview for other templates in this pass.
+Choose one *route* from the selected template, then follow its evidence order:
+
+| Template | Route |
+|---|---|
+| `project`, `overview`, `workflows`, `workflow`, `integrations`, `integration`, `runbooks`, `runbook`, `api` | **Shared** |
+| `backend`, `frontend` | **Stack** |
+| `adr` | **Decision** |
+| `glossary` | **Language** |
+
+### Shared route — meaning first
+
+1. Run `/grilling` for purpose, scope, actors, behavior, intended contracts, and the template's unresolved Status fields.
+2. Inspect code only after that meaning is established. Use code to corroborate and fill verifiable facts such as deployed components, shared-contract identifiers, and observable behavior.
+3. Treat product intent and business meaning as human evidence; code alone does not establish either.
+
+### Stack route — implementation first
+
+1. Inspect the relevant frontend or backend code and pre-fill verifiable stack facts.
+2. Run `/grilling` only for unresolved placeholders, intent, and judgment calls.
+
+### Decision route — decision first
+
+1. Run `/grilling` to establish the decision, alternatives, rationale, and consequences.
+2. Inspect code afterward to verify the current implementation state; keep the human decision distinct from that state.
+
+### Language route — usage first
+
+1. Inspect terminology already used in project documentation and code.
+2. Run `/grilling` for ambiguous meanings, overloaded terms, and the canonical choice.
+
+### Conflict gate — human resolution
+
+For every route, compare claims that appear in more than one available evidence source. When any two sources disagree—including user answers, code, or existing documentation:
+
+1. State the conflicting claims and name their sources.
+2. Ask the user which claim is authoritative or how the sources should be reconciled.
+3. Leave the affected placeholder unresolved until the user decides; do not select the last-inspected source.
+
+Stay in *focus* throughout Step 4: derive questions from this template's placeholders, its “what this answers / must NOT contain” guidance, and its Status fields. Do not interview for another template in this pass.
 
 ---
 
@@ -94,6 +130,7 @@ Completion: user knows next action; session does not mutate Wiki.js.
 ## Guards (positive form)
 
 - One template per focused pass.
+- Selected template determines one evidence *route*; every route passes through the *conflict* gate.
 - Pull index for *menu*; pull the chosen template body only; propagation pulls **index paths first**, exact paths only — no folder listings, no unrelated pages.
 - Author working copies; `/wiki-publish` performs *mutate*.
 - Leaf and section pages trigger *index propagation* unless the user opts out.

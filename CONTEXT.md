@@ -10,7 +10,7 @@ This private GitHub repository (`aifgrouplaos/ai-skills`). It holds Skills for i
 
 ## Wiki page (durable)
 
-A published page on the company Wiki.js host, identified by **(path, locale)** — same GraphQL path can exist in multiple locales. The wiki is the durable store for Engineering Wiki content.
+A published page on the company Wiki.js host, identified by **(path, locale)** — same GraphQL path can exist in multiple locales. The wiki is the durable store for project documentation.
 
 ## Locale (wiki)
 
@@ -44,9 +44,25 @@ The Wiki.js base URL used by Wiki publish / Wiki write / Wiki write Lao. Taken f
 
 The Wiki publish branch when no working copy exists yet. Modes: **stub**, **pull template** (from live wiki `standards/templates/…`, else stub), **pull live** (target path via GraphQL). Always followed by Plan A + `APPROVE` before writing the working copy.
 
+## Shared page
+
+A project Wiki page filled from `project`, `overview`, `workflows`, `workflow`, `integrations`, `integration`, `runbooks`, `runbook`, or `api`. It owns system-level and cross-stack facts readable across frontend and backend roles (and by BA readers when relevant): technical components, shared-contract identifiers, and observable specialist actions are allowed, but one stack's internal design, storage identifiers, commands, and implementation mechanics are not.
+
+_Avoid_: generic page, non-tech page.
+
+## Workflow page
+
+A Shared page that explains one project journey end to end across actors, frontend, backend, integrations, decisions, state transitions, failure paths, and observable outcomes. It owns the coherent cross-stack story; Specialist pages and repository documentation own how each part is implemented. For newcomer orientation, the intended reading path is Project page → Overview page → Workflows index → Workflow page.
+
+_Avoid_: using Workflow page for the Workflows index; requiring readers to reconstruct the journey from separate frontend and backend implementation documents.
+
+## Specialist page
+
+A project Wiki page filled from `backend`, `frontend`, `adr`, or `glossary`. Written for people changing that stack (or that side's git).
+
 ## Wiki write
 
-The Skill that authors one **English** Engineering Wiki page per run from a live `standards/templates/…` template. It never mutates Wiki.js. After selecting one template, it routes evidence by page type: Shared templates establish cross-role meaning before code corroboration; backend and frontend inspect code before grilling gaps; ADR establishes the decision before verifying implementation; glossary inspects existing language before resolving ambiguity. Conflicting sources require human resolution. The Skill then writes ephemeral working copies for the selected page and applicable index propagation, and hands off to `/wiki-publish`.
+The Skill that authors one **English** Wiki page per run from a live `standards/templates/…` template (a **Shared page** or a **Specialist page**). It never mutates Wiki.js. After selecting one template, it routes evidence by page type: Shared templates establish cross-role meaning before code corroboration; backend and frontend inspect code before grilling gaps; ADR establishes the decision before verifying implementation; glossary inspects existing language before resolving ambiguity. Conflicting sources require human resolution. The Skill then writes ephemeral working copies for the selected page and applicable index propagation, and hands off to `/wiki-publish`.
 
 _Avoid_: emitting Lao in the same run; re-grilling for Lao (use **Wiki write Lao**).
 
@@ -59,4 +75,3 @@ _Avoid_: "version" when you mean locale; a second GraphQL path for Lao; writing 
 ## Project name (wiki)
 
 The slug under `projects/<project-name>/` (URL form `$WIKI_URL/<locale>/projects/<project-name>/`). Taken from the wiki `projects` index only — never from the git repo or cwd. Ask the user only when creating a project that is not yet on that index.
-
